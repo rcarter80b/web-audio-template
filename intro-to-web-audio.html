@@ -1,0 +1,40 @@
+<!-- This is a comment in HTML -->
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>TITLE</title>
+</head>
+<body>
+
+<header>
+  <h1>Welcome to Web Audio!</h1>
+</header>
+
+<main>
+  <h2>Click the button to make some sound:</h2>
+  <button id="playButton" type="button"></button>
+</main>
+
+<script src="js/Tone.js"></script>
+
+<script>
+
+// The following example is from https://tonejs.github.io
+// Create a synth and connect it to the master output (your speakers)
+var synth = new Tone.Synth().toMaster();
+var clave = new Tone.Player('audio/clave.mp3').toMaster();
+
+// The following block of JavaScript code will run when the button is clicked
+document.querySelector('#playButton').onclick = function() {
+  console.log('The play button has been clicked.');
+
+  // Play a middle 'C' for the duration of a half second
+  synth.triggerAttackRelease('C4', 0.5);
+  clave.start('+1.0');
+};
+
+</script>
+
+</body>
+</html>
