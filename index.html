@@ -3,7 +3,7 @@
 <html lang="en-US" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>TITLE</title>
+  <title>TITLE GOES HERE</title>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
@@ -59,6 +59,7 @@ pitchShiftSlider.addEventListener('input', function() {
 document.querySelector('#playButton').onclick = function() {
   console.log('The play button has been clicked.');
 
+<<<<<<< HEAD
   // Play a middle C, which will sound until the stop button is clicked
   synth.triggerAttack('C4');
 };
@@ -69,6 +70,12 @@ document.querySelector('#stopButton').onclick = function() {
 
   // Stop the note from sounding
   synth.triggerRelease();
+=======
+  // Play a middle 'C' for the duration of a half second
+  synth.triggerAttackRelease('C4', 0.5);
+  clave.start('+1.0');
+  clave.start('+1.5');
+>>>>>>> 37d48ddd5935d26fdc5ab7c001e1be8b178d003d
 };
 
 </script>
