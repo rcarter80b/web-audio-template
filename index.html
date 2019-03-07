@@ -13,26 +13,62 @@
 </header>
 
 <main>
-  <h2>Click the button to make some sound:</h2>
-  <button id="playButton" type="button"></button>
+  <h2>Click the buttons to make (or stop) some sound:</h2>
+  <button id="playButton" class="btn-transport" type="button">play</button>
+  <button id="stopButton" class="btn-transport" type="button">stop</button>
+  <fieldset>
+    <legend>Use slider to control pitch shift</legend>
+    <input type="range" id="pitchShiftSlider" name="pitchShiftSlider" min="-12" max="12" step="0.5" />
+  </fieldset>
 </main>
 
 <script src="js/Tone.js"></script>
 
 <script>
 
-// The following example is from https://tonejs.github.io
-// Create a synth and connect it to the master output (your speakers)
-var synth = new Tone.Synth().toMaster();
+// Create a pitch shifter and connect its output to the master out
+var pitchShift = new Tone.PitchShift().toMaster();
+
+// Create a synth and connect it to the pitch shifter
+var synth = new Tone.Synth({
+  oscillator: {
+    type: 'sawtooth'
+  },
+  envelope: {
+    attack: 0.01,
+    decay: 0.1,
+    sustain: 0.5,
+    release: 1
+  }
+}).connect(pitchShift);
+
+// Sample code to load a sound file
+// NOTE: This sound file is not played in this script
 var clave = new Tone.Player('audio/clave.mp3').toMaster();
 
-// The following block of JavaScript code will run when the button is clicked
+// Bind slider value to pitch shift amount
+// Every change in slider value triggers change in pitch shift
+// It's silly to pitch shift a synthesizer, right?
+// But what else could we pitch shift?
+var pitchShiftSlider = document.querySelector('#pitchShiftSlider');
+pitchShiftSlider.addEventListener('input', function() {
+  pitchShift.pitch = pitchShiftSlider.value;
+});
+
+// The following block of code will run when the play button is clicked
 document.querySelector('#playButton').onclick = function() {
   console.log('The play button has been clicked.');
 
-  // Play a middle 'C' for the duration of a half second
-  synth.triggerAttackRelease('C4', 0.5);
-  clave.start('+1.0');
+  // Play a middle C, which will sound until the stop button is clicked
+  synth.triggerAttack('C4');
+};
+
+// The following block of code will run when the stop button is clicked
+document.querySelector('#stopButton').onclick = function() {
+  console.log('The stop button has been clicked.');
+
+  // Stop the note from sounding
+  synth.triggerRelease();
 };
 
 </script>

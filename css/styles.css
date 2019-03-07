@@ -4,7 +4,7 @@ body {
   margin-top: 7em;
 }
 
-#playButton {
+.btn-transport {
   font-size: 1.5em;
   font-weight: 750;
   padding: 1em 2em;
@@ -20,7 +20,7 @@ body {
   margin .2s;
 }
 
-#playButton:hover {
+.btn-transport:hover {
   margin: 0;
   padding: 1.1em 2.2em;
   border-radius: 8px;
