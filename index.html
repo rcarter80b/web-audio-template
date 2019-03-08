@@ -18,6 +18,7 @@
   <button id="stopButton" class="btn-transport" type="button">stop</button>
   <fieldset>
     <legend>Use slider to control pitch shift</legend>
+    <label id="pitchShiftLabel" for="pitchShiftSlider">0</label>
     <input type="range" id="pitchShiftSlider" name="pitchShiftSlider" min="-12" max="12" step="0.5" />
   </fieldset>
 </main>
@@ -50,9 +51,13 @@ var clave = new Tone.Player('audio/clave.mp3').toMaster();
 // Every change in slider value triggers change in pitch shift
 // It's silly to pitch shift a synthesizer, right?
 // But what else could we pitch shift?
+var pitchShiftLabel = document.querySelector('#pitchShiftLabel');
 var pitchShiftSlider = document.querySelector('#pitchShiftSlider');
 pitchShiftSlider.addEventListener('input', function() {
+  // assign slider value to pitch shift amount (in semitones)
   pitchShift.pitch = pitchShiftSlider.value;
+  // update slider label
+  pitchShiftLabel.innerHTML = pitchShiftSlider.value;
 });
 
 // The following block of code will run when the play button is clicked

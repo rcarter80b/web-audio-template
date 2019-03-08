@@ -28,3 +28,7 @@ body {
   color: darkgreen;
   border-color: darkgreen;
 }
+
+label {
+  display: block;
+}
